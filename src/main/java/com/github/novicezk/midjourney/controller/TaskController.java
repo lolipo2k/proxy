@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.context.annotation.Bean;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,7 +24,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-@CrossOrigin(origins = "*")
 @Api(tags = "任务查询")
 @RestController
 @RequestMapping("/task")
@@ -61,6 +62,22 @@ public class TaskController {
 			return Collections.emptyList();
 		}
 		return conditionDTO.getIds().stream().map(this.taskStoreService::get).filter(Objects::nonNull).toList();
+	}
+
+	@Bean
+	public WebMvcConfigurer configure() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+		        registry.addMapping("/**")
+                    .allowedOrigins("*")
+                    .allowedHeaders("*")
+                    .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
+                    .maxAge(-1)   // add maxAge
+                    .allowCredentials(false);
+			}
+			
+		};
 	}
 
 }

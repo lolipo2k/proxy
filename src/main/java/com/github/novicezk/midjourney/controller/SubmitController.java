@@ -35,6 +35,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.context.annotation.Bean;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -42,7 +44,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@CrossOrigin(origins = "*")
 @Api(tags = "任务提交")
 @RestController
 @RequestMapping("/submit")
@@ -224,5 +225,21 @@ public class SubmitController {
 			promptEn = prompt;
 		}
 		return promptEn;
+	}
+
+	@Bean
+	public WebMvcConfigurer configure() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+		        registry.addMapping("/**")
+                    .allowedOrigins("*")
+                    .allowedHeaders("*")
+                    .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
+                    .maxAge(-1)   // add maxAge
+                    .allowCredentials(false);
+			}
+			
+		};
 	}
 }
