@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.context.annotation.Bean;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -54,6 +53,7 @@ public class SubmitController {
 	private final ProxyProperties properties;
 	private final TaskService taskService;
 
+    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "提交Imagine任务")
 	@PostMapping("/imagine")
 	public SubmitResultVO imagine(@RequestBody SubmitImagineDTO imagineDTO) {
@@ -87,6 +87,7 @@ public class SubmitController {
 		return this.taskService.submitImagine(task, dataUrls);
 	}
 
+    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "绘图变化-simple")
 	@PostMapping("/simple-change")
 	public SubmitResultVO simpleChange(@RequestBody SubmitSimpleChangeDTO simpleChangeDTO) {
@@ -103,6 +104,7 @@ public class SubmitController {
 		return change(changeDTO);
 	}
 
+    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "绘图变化")
 	@PostMapping("/change")
 	public SubmitResultVO change(@RequestBody SubmitChangeDTO changeDTO) {
@@ -156,6 +158,7 @@ public class SubmitController {
 		}
 	}
 
+    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "提交Describe任务")
 	@PostMapping("/describe")
 	public SubmitResultVO describe(@RequestBody SubmitDescribeDTO describeDTO) {
@@ -176,6 +179,7 @@ public class SubmitController {
 		return this.taskService.submitDescribe(task, dataUrl);
 	}
 
+    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "提交Blend任务")
 	@PostMapping("/blend")
 	public SubmitResultVO blend(@RequestBody SubmitBlendDTO blendDTO) {
@@ -225,21 +229,5 @@ public class SubmitController {
 			promptEn = prompt;
 		}
 		return promptEn;
-	}
-
-	@Bean
-	public WebMvcConfigurer configure() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-		        registry.addMapping("/**")
-                    .allowedOrigins("*")
-                    .allowedHeaders("*")
-                    .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
-                    .maxAge(-1)   // add maxAge
-                    .allowCredentials(false);
-			}
-			
-		};
 	}
 }

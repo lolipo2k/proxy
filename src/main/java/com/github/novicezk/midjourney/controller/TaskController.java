@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.context.annotation.Bean;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,6 +31,7 @@ public class TaskController {
 	private final TaskStoreService taskStoreService;
 	private final TaskQueueHelper taskQueueHelper;
 
+    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "查询所有任务")
 	@GetMapping("/list")
 	public List<Task> list() {
@@ -40,12 +40,14 @@ public class TaskController {
 				.toList();
 	}
 
+    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "指定ID获取任务")
 	@GetMapping("/{id}/fetch")
 	public Task fetch(@ApiParam(value = "任务ID") @PathVariable String id) {
 		return this.taskStoreService.get(id);
 	}
 
+    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "查询任务队列")
 	@GetMapping("/queue")
 	public List<Task> queue() {
@@ -55,6 +57,7 @@ public class TaskController {
 				.toList();
 	}
 
+    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "根据条件查询任务")
 	@PostMapping("/list-by-condition")
 	public List<Task> listByCondition(@RequestBody TaskConditionDTO conditionDTO) {
@@ -62,22 +65,6 @@ public class TaskController {
 			return Collections.emptyList();
 		}
 		return conditionDTO.getIds().stream().map(this.taskStoreService::get).filter(Objects::nonNull).toList();
-	}
-
-	@Bean
-	public WebMvcConfigurer configure() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-		        registry.addMapping("/**")
-                    .allowedOrigins("*")
-                    .allowedHeaders("*")
-                    .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
-                    .maxAge(-1)   // add maxAge
-                    .allowCredentials(false);
-			}
-			
-		};
 	}
 
 }
