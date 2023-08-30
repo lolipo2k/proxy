@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.context.annotation.Bean;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,7 +28,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/task")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+/*@CrossOrigin(origins = "*") */
 public class TaskController {
 	private final TaskStoreService taskStoreService;
 	private final TaskQueueHelper taskQueueHelper;
@@ -66,16 +64,5 @@ public class TaskController {
 		}
 		return conditionDTO.getIds().stream().map(this.taskStoreService::get).filter(Objects::nonNull).toList();
 	}
-
-	@Bean
-    public WebMvcConfigurer configure() {
-            return new WebMvcConfigurer() {
-    @Override
-    public void addCorsMappings(CorsRegistry reg) {
-            reg.addMapping("/**").allowedOrigins("*");
-   }
-  };
-  
- }
 
 }

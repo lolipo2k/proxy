@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import spring.config.BeanConfig;
 import spring.config.WebMvcConfig;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.context.annotation.Bean;
 
 @EnableScheduling
 @SpringBootApplication
@@ -15,5 +17,16 @@ public class ProxyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProxyApplication.class, args);
 	}
+
+	@Bean
+    public WebMvcConfigurer configure() {
+            return new WebMvcConfigurer() {
+    @Override
+    public void addCorsMappings(CorsRegistry reg) {
+            reg.addMapping("/**").allowedOrigins("*");
+   }
+  };
+  
+ }
 
 }

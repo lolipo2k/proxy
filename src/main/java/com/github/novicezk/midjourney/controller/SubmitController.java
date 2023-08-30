@@ -37,8 +37,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.context.annotation.Bean;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -50,7 +48,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/submit")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+/*@CrossOrigin(origins = "*") */
 public class SubmitController {
 	private final TranslateService translateService;
 	private final TaskStoreService taskStoreService;
@@ -230,15 +228,4 @@ public class SubmitController {
 		return promptEn;
 	}
 
-	
-	@Bean
-    public WebMvcConfigurer configure() {
-            return new WebMvcConfigurer() {
-    @Override
-    public void addCorsMappings(CorsRegistry reg) {
-            reg.addMapping("/**").allowedOrigins("*");
-   }
-  };
-  
- }
 }
