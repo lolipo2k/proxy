@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+@CrossOrigin(origins = "*")
 @Api(tags = "任务查询")
 @RestController
 @RequestMapping("/task")
@@ -32,7 +33,6 @@ public class TaskController {
 	private final TaskStoreService taskStoreService;
 	private final TaskQueueHelper taskQueueHelper;
 
-    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "查询所有任务")
 	@GetMapping("/list")
 	public List<Task> list() {
@@ -41,14 +41,12 @@ public class TaskController {
 				.toList();
 	}
 
-    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "指定ID获取任务")
 	@GetMapping("/{id}/fetch")
 	public Task fetch(@ApiParam(value = "任务ID") @PathVariable String id) {
 		return this.taskStoreService.get(id);
 	}
 
-    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "查询任务队列")
 	@GetMapping("/queue")
 	public List<Task> queue() {
@@ -58,7 +56,6 @@ public class TaskController {
 				.toList();
 	}
 
-    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "根据条件查询任务")
 	@PostMapping("/list-by-condition")
 	public List<Task> listByCondition(@RequestBody TaskConditionDTO conditionDTO) {

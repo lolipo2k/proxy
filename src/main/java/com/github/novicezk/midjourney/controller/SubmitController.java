@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@CrossOrigin(origins = "*")
 @Api(tags = "任务提交")
 @RestController
 @RequestMapping("/submit")
@@ -54,7 +55,6 @@ public class SubmitController {
 	private final ProxyProperties properties;
 	private final TaskService taskService;
 
-    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "提交Imagine任务")
 	@PostMapping("/imagine")
 	public SubmitResultVO imagine(@RequestBody SubmitImagineDTO imagineDTO) {
@@ -88,7 +88,6 @@ public class SubmitController {
 		return this.taskService.submitImagine(task, dataUrls);
 	}
 
-    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "绘图变化-simple")
 	@PostMapping("/simple-change")
 	public SubmitResultVO simpleChange(@RequestBody SubmitSimpleChangeDTO simpleChangeDTO) {
@@ -105,7 +104,6 @@ public class SubmitController {
 		return change(changeDTO);
 	}
 
-    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "绘图变化")
 	@PostMapping("/change")
 	public SubmitResultVO change(@RequestBody SubmitChangeDTO changeDTO) {
@@ -159,7 +157,6 @@ public class SubmitController {
 		}
 	}
 
-    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "提交Describe任务")
 	@PostMapping("/describe")
 	public SubmitResultVO describe(@RequestBody SubmitDescribeDTO describeDTO) {
@@ -180,7 +177,6 @@ public class SubmitController {
 		return this.taskService.submitDescribe(task, dataUrl);
 	}
 
-    @CrossOrigin(origins = "*")
 	@ApiOperation(value = "提交Blend任务")
 	@PostMapping("/blend")
 	public SubmitResultVO blend(@RequestBody SubmitBlendDTO blendDTO) {
