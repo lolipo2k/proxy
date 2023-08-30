@@ -44,11 +44,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@CrossOrigin(origins = "", allowedHeaders = "")
 @Api(tags = "任务提交")
 @RestController
 @RequestMapping("/submit")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class SubmitController {
 	private final TranslateService translateService;
 	private final TaskStoreService taskStoreService;

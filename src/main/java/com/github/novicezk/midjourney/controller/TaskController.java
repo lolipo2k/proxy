@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-@CrossOrigin(origins = "", allowedHeaders = "")
 @Api(tags = "任务查询")
 @RestController
 @RequestMapping("/task")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class TaskController {
 	private final TaskStoreService taskStoreService;
 	private final TaskQueueHelper taskQueueHelper;
