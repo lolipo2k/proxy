@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "", allowedHeaders = "")
 @Api(tags = "任务查询")
 @RestController
 @RequestMapping("/task")
