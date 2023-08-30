@@ -227,4 +227,16 @@ public class SubmitController {
 		}
 		return promptEn;
 	}
+
+	
+	@Bean
+    public WebMvcConfigurer configure() {
+            return new WebMvcConfigurer() {
+    @Override
+    public void addCorsMappings(CorsRegistry reg) {
+            reg.addMapping("/**").allowedOrigins("*");
+   }
+  };
+  
+ }
 }

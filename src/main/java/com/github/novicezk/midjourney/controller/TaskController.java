@@ -65,4 +65,15 @@ public class TaskController {
 		return conditionDTO.getIds().stream().map(this.taskStoreService::get).filter(Objects::nonNull).toList();
 	}
 
+	@Bean
+    public WebMvcConfigurer configure() {
+            return new WebMvcConfigurer() {
+    @Override
+    public void addCorsMappings(CorsRegistry reg) {
+            reg.addMapping("/**").allowedOrigins("*");
+   }
+  };
+  
+ }
+
 }
